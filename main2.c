@@ -188,6 +188,19 @@ void string(){
 void interpreter(){
     if (*current_char == '{'){
         readjson();
+        printf("The number is: %lld\n", accumulator);
+    }
+    else if(*current_char == '\"'){
+        consume();
+        char buffer[126];
+        int index = 0;
+        while (*current_char != '\"')
+        {
+            buffer[index] = *current_char;
+            consume();
+            index++;
+        }
+        printf("%s\n", buffer);
     }
     else{
         int64();
@@ -195,6 +208,7 @@ void interpreter(){
         if (*current_char != '\0') {
             error();
         }
+        printf("The number is: %lld\n", accumulator);
     }
 }
 
@@ -213,9 +227,6 @@ int main(int argc, char const *argv[])
 
     //Run the interpreter
     interpreter();
-        
-    printf("The number is: %lld\n", accumulator);
-
 }
 
 
